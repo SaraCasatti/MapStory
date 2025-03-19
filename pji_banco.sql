@@ -3,7 +3,16 @@ use MapStory;
 
 create table usuarios(id int primary key auto_increment, 
 usuario varchar(80) not null unique,
+solicitacoes varchar(5000),
 senha varchar(80) not null);
+
+create table amigos(
+id_usuario1 int,
+id_usuario2 int,
+solicitacoes varchar(5000),
+primary key(id_usuario1, id_usuario2),
+foreign key (id_usuario1) references usuarios(id),
+foreign key (id_usuario2) references usuarios(id));
 
 create table viagens(id int primary key auto_increment, 
 cidade varchar(80) not null,
@@ -43,5 +52,5 @@ img blob,
 id_ponto int,
 foreign key (id_ponto) references pontos(id));
 
-
+select * from imagens;
 
