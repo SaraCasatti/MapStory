@@ -11,13 +11,6 @@ async function conecta() {
     return conexao
 }
 
-//usuarios - amizades e viagens juntos
-
-//viagens
-
-//pontos
-
-//rotas
 
 //buscas
-module.exports = {}
+module.exports = {conecta}

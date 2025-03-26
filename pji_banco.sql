@@ -3,16 +3,18 @@ use MapStory;
 
 create table usuarios(id int primary key auto_increment, 
 usuario varchar(80) not null unique,
-solicitacoes varchar(5000),
 senha varchar(80) not null);
 
-create table amigos(
-id_usuario1 int,
-id_usuario2 int,
-solicitacoes varchar(5000),
+create table solicitacoes(
+-- deletar (depois de respondida) - delete
+-- criar - post
+id_usuario1 int, --quem manda a solicitacao
+id_usuario2 int, --quem aceita a solicitacao
+id_viagem int,
 primary key(id_usuario1, id_usuario2),
 foreign key (id_usuario1) references usuarios(id),
-foreign key (id_usuario2) references usuarios(id));
+foreign key (id_usuario2) references usuarios(id),
+foreign key (id_viagem) references viagens(id)); --na hora que for a viagem no forms pergunta se quer adicionar alguem 
 
 create table viagens(id int primary key auto_increment, 
 cidade varchar(80) not null,
