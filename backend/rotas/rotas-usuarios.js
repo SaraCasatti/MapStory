@@ -42,7 +42,7 @@ router.post("", async (req, res) => {
 })
 
 router.delete("/:id", async (req, res) => {
-    //deleta o usuario
+    //deleta o usuario - tambem vai presisar deletar as viagens do usuario
     const id = req.params.id
     resp = await banco.deletaUsuario(id)
     if(resp == 1) {
@@ -53,7 +53,7 @@ router.delete("/:id", async (req, res) => {
 })
 
 router.put("/:usuario", async (req, res) => {
-    //pode apenas mudar a senha
+    //pode o nome do usuario e a senha
     const usuario = req.params.usuario
     const senha = req.body.senha
     resp = await banco.alterarSenha(usuario, senha)
@@ -63,9 +63,5 @@ router.put("/:usuario", async (req, res) => {
         return res.status(404).send("erro")
     }
 })
-
-
-
-
 
 module.exports = router;
