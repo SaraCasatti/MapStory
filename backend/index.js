@@ -21,4 +21,13 @@ app.use("/buscas", require("./rotas/rotas-buscas"))
 app.use("/solicitacoes", require("./rotas/rotas-solicitacoes"))
 app.use("/imagens", require("./rotas/rotas-imagens"))
 
+
+//usuarios -- feito
+//viagens -- feito
+//rotas -- foito
+//pontos -- feito
+//buscas
+//solicitacoes
+//imagens
+
 app.listen(8001)

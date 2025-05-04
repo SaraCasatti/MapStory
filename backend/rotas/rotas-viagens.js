@@ -31,11 +31,11 @@ router.post("", async(req, res) => {
 router.delete("/:id", async(req, res) => {
 //ver certinho na hora de implementar
     let id = req.params.id
-    let delUserViagem = await banco.deletaUsuarioViagem(id)
+    let delUserViagem = await banco.deletaUsuarioViagemIdViagem(id)
     if(delUserViagem) {
         let resp = await banco.deletaViagem(id)
         if(resp) {
-            return res.status(204).send("receita deletada")
+            return res.status(204).send("viagem deletada")
         } else {
             return res.status(404).send("erro")
         }

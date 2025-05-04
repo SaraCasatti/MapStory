@@ -14,6 +14,7 @@ async function viagensId(id) {
     let conn = await banco.conecta()
     let sql= "select * from viagens where id = ?"
     let resp = await conn.query(sql, [id])
+    return resp[0]
 }
 
 //cria viagem
@@ -54,10 +55,21 @@ async function atualizaViagem(viagem) {
 }
 
 //deleta usuario viagem com o id da viagem 
-async function deletaUsuarioViagem(id_viagem) {
+async function deletaUsuarioViagemIdViagem(id_viagem) {
     let conn = await banco.conecta()
     let sql = "delete from usuario_viagem where id_viagem = ?"
     let resp = await conn.query(sql, [id_viagem])
+    console.log(resp)
+    return resp[0]
 }
 
-module.exports = {viagens, viagensId,criaViagem, addUsuarioViagem, deletaViagem, atualizaViagem, deletaUsuarioViagem}
+//deleta usuario da viagem com o id do usuario e o id da viagem
+async function deletaUsuarioDaViagem(id_viagem, id_usuario) {
+    let conn = await banco.conecta()
+    let sql = "delete from usuario_viagem where id_viagem = ? and id_usuario = ?"
+    let resp = await conn.query(sql, [id_viagem, id_usuario])
+    console.log(resp)
+    return resp[0]
+}
+
+module.exports = {deletaUsuarioDaViagem, deletaUsuarioViagemIdViagem, viagens, viagensId,criaViagem, addUsuarioViagem, deletaViagem, atualizaViagem}
