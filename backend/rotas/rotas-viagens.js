@@ -4,9 +4,9 @@ const banco = require("../banco/banco_viagens")
 const banco_solicitacoes = require("../banco/banco_solicitacoes")
 const banco_rotas = require("../banco/banco_rotas")
 
-//pega todas as viagens
-router.get("", async(req, res) => {
-    let viagens = await banco.viagens()
+//pega todas as viagens de um usuario
+router.get("/usuario/:id_usuario", async(req, res) => {
+    let viagens = await banco.viagens(req.params.id_usuario)
     return res.status(200).json(viagens)
 })
 
@@ -18,11 +18,14 @@ router.get("/:id", async(req, res) => {
 })
 
 //cria viagem e ja adiciona o usuario a viagem
-router.post("", async(req, res) => {
+router.post("/:id_usuario", async(req, res) => {
     let viagem = req.body
     let resp = await banco.criaViagem(viagem)
     if (resp.affectedRows == 1) {
-        return res.status(201).json(resp)
+        let resp2 = await banco.addUsuarioViagem(resp.insertId, req.params.id_usuario)
+        if(resp2.affectedRows == 1) {
+            return res.status(201).send("viagem criada")
+        }
     } else {
         return res.status(400).send("erro")
     }
@@ -35,7 +38,7 @@ router.delete("/:id", async(req, res) => {
     if(delUserViagem) {
         let resp = await banco.deletaViagem(id)
         if(resp) {
-            return res.status(204).send("viagem deletada")
+            return res.status(201).send("viagem deletada")
         } else {
             return res.status(404).send("erro")
         }

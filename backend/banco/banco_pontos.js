@@ -1,12 +1,6 @@
 const banco = require("./banco")
 
-//pega todos os pontos
-async function pegaPontos() {
-    let conn = await banco.conecta()
-    let sql = "select * from pontos"
-    let resp = await conn.query(sql)
-    return resp[0]
-}
+
 
 //pega ponto por id
 async function buscaPontoId(id) {
@@ -43,4 +37,4 @@ async function deletaPonto (id) {
     return resp[0].affectedRows
 }
 
-module.exports = {pegaPontos, buscaPontoId,criaPonto, atualizaPonto, deletaPonto}
+module.exports = {buscaPontoId,criaPonto, atualizaPonto, deletaPonto}

@@ -4,11 +4,6 @@ const banco = require("../banco/banco_pontos")
 const banco_rotas_ponto = require("../banco/banco_rotas")
 const banco_imagens = require("../banco/banco_imagens")
 
-//pega todos os pontos
-router.get("", async(req, res) => {
-    let pontos = await banco.pegaPontos()
-    return res.status(200).json(viagens)
-})
 
 //pega ponto por id viagem
 router.get("/:id", async(req, res) => {

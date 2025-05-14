@@ -3,19 +3,33 @@ const router = express.Router()
 const banco = require("../banco/banco_solicitacoes")
 const banco_viagens = require("../banco/banco_viagens")
 
+//pegar solicitacao enviadas
+router.get("/:id_usuario1", async (req, res) => {
+    let id_usuario1 = req.params.id_usuario1
+    let resp = await banco.pegaSolicitacoesEnviadas(id_usuario1)
+    return res.status(201).json(resp)
+})
+
+//pegar solicitacoes recebidas
+router.get("/:id_usuario2", async (req, res) => {
+    let id_usuario2 = req.params.id_usuario2
+    let resp = await banco.pegaSolicitacoesRecebidas(id_usuario2)
+    return res.status(201).json(resp)
+})
+
 router.post("", async (req, res) => {
     //fazer solicitação com o id de quem manda (usuario_1 )e o usuario (2) de quem recebe
     let solicitacao = req.body
     let resp = await banco.mandaSolicitacao(solicitacao)
     if (resp.affectedRows == 1) {
-        return res.status(201).json(resp)
+        return res.status(201).send("solicitacao enviada")
     } else {
         return res.status(400).send("erro")
     }
 })
 
 router.delete("/:id", async(req, res) => {
-    //deleta a solicitação apenas quando ela é respondida
+    //deleta a solicitação pelo id de quem mandou 
     let id = req.params.id
     let resp = await banco.deletaSolicitacao(id)
     if(resp) {
@@ -39,16 +53,16 @@ router.post("/responder/:tipo/:resp", async(req, res) => {
     if(tipo) {
         if (resp) {
             let addUsuario = await banco_viagens.addUsuarioViagem(solicitacao.id_viagem, solicitacao.id_usuario)
-            if(addUsuario) {
+            if(addUsuario.affectedRows == 1) {
                 console.log("usuario adicionado na viagem")
             } else {
                 return res.status(400).send("usuario nao pode ser adicionado")
             }
         } 
     } else {
-        if (resp) {
+        if (!resp) {
             let delUsuario = await banco_viagens.deletaUsuarioDaViagem(solicitacao.id_viagem, solicitacao.id_usuario)
-            if(delUsuario) {
+            if(delUsuario.affectedRows == 1) {
                 console.log("usuario removido da viagem")
             } else {
                 return res.status(400).send("usuario nao pode ser deletado da viagem")

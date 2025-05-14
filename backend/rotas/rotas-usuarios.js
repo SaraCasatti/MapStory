@@ -5,9 +5,9 @@ const banco = require("../banco/banco_usuarios")
 router.get("/:usuario", async (req, res) => {
     //ve se o usuario existe
     const usuario = req.params.usuario
-    let resp = await banco.mostrarUsuario()
+    let resp = await banco.mostraUsuario(usuario)
     console.log(resp)
-    if(resp != undefined) {
+    if(resp.length > 0) {
         return res.status(200).json(resp)
     } else {
         return res.status(404).send("usuario inexistente")
@@ -15,7 +15,7 @@ router.get("/:usuario", async (req, res) => {
 })
 
 router.get("/checar/:usuario/:senha", async (req, res) => {
-    //loga o usuario
+    //loga o usuario - depois de checar se ele existe
     const usuario = req.params.usuario
     const senha = req.params.senha
     let senhaOficial = await banco.mostraUsuarioSenha(usuario)
@@ -53,7 +53,7 @@ router.delete("/:id", async (req, res) => {
 })
 
 router.put("/:usuario", async (req, res) => {
-    //pode o nome do usuario e a senha
+    //pode atualizar a senha
     const usuario = req.params.usuario
     const senha = req.body.senha
     resp = await banco.alterarSenha(usuario, senha)

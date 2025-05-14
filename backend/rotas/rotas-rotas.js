@@ -9,9 +9,9 @@ router.get("/:id", async (req, res) => {
     return res.status(200).json(viagem)
 })
 
-//pega todas as rotas
-router.get("", async (req, res) => {
-    let viagens = await banco.pegaRotas()
+//pega todas as rotas da viagem
+router.get("/viagem/:id_viagem", async (req, res) => {
+    let viagens = await banco.pegaRotas(req.params.id_viagem)
     return res.status(200).json(viagens)
 })
 
@@ -57,7 +57,7 @@ router.put("/:id", async(req, res) => {
     let rota = req.body
     let resp = await banco.editaRota(rota)
     if(resp){
-        return res.status(204).send("rota atualizada")
+        return res.status(201).send("rota atualizada")
     } else {
         return res.status(404).send("erro")
     }

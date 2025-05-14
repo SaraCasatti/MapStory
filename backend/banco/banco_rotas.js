@@ -8,11 +8,11 @@ async function buscaPorId(id) {
     return resp[0]
 }
 
-//pega todas as rotas
-async function pegaRotas() {
+//pega todas as rotas da viagem
+async function pegaRotas(id_viagem) {
     let conn = await banco.conecta()
-    let sql = "select * from rotas"
-    let resp = await conn.query(sql)
+    let sql = "select * from rotas where id_viagem = ?"
+    let resp = await conn.query(sql, [id_viagem])
     return resp[0]
 }
 
@@ -27,7 +27,7 @@ async function pontosRota(id_rota) {
 //cria rotas
 async function criaRota(rota) {
     let conn = await banco.conecta()
-    let sql = "insert into viagens(nome, dia, hora, descricao, id_viagem) values (?, ?, ?, ?, ?)"
+    let sql = "insert into rotas(nome, dia, hora, descricao, id_viagem) values (?, ?, ?, ?, ?)"
     let resp = await conn.query(sql, [rota.nome, rota.dia, rota.hora, rota.descricao, rota.id_viagem])
     console.log("resp:",resp)
     return resp[0]
