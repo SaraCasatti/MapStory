@@ -2,10 +2,10 @@ const banco = require("./banco")
 
 
 
-//pega ponto por id
+//pega ponto por id_viagem
 async function buscaPontoId(id) {
     let conn = await banco.conecta()
-    let sql = "select * from pontos where id = ?"
+    let sql = "select * from pontos where id_viagem = ?"
     let resp = await conn.query(sql, [id])
     return resp[0]
 }
@@ -14,7 +14,7 @@ async function buscaPontoId(id) {
 async function criaPonto(ponto) {
     let conn = await banco.conecta()
     let sql = "insert into pontos(latitude, longitude, fui, descricao, id_viagem) values (?, ?, ?, ?, ?)"
-    let resp = await conn.query(sql, [ponto.latitude, ponto.longitude, ponto.fui, ponto.descricao, ponto.id])
+    let resp = await conn.query(sql, [ponto.latitude, ponto.longitude, ponto.fui, ponto.descricao, ponto.id_viagem])
     console.log("resp:",resp)
     return resp[0]
 }

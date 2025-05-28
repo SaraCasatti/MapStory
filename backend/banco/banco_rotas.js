@@ -19,7 +19,7 @@ async function pegaRotas(id_viagem) {
 //pega todos os pontos dentro de uma rota
 async function pontosRota(id_rota) {
     let conn = await banco.conecta()
-    let sql = "select * from rotas_pontos where id = ?"
+    let sql = "select *from pontos where id in (select id_pontos from rotas_pontos where id_rota = ?)"
     let resp = await conn.query(sql, [id_rota])
     return resp[0]
 }
@@ -54,7 +54,7 @@ async function editaRota(rota) {
 //adicionar ponto a rota tabela rotas_pontos
 async function addPonto(id_ponto, id_rota) {
     let conn = await banco.conecta()
-    let sql = "insert into rotas_pontos(id_rota, id_ponto) values (?, ?)"
+    let sql = "insert into rotas_pontos(id_rota, id_pontos) values (?, ?)"
     let resp = await conn.query(sql, [id_rota, id_ponto])
     console.log("resp:",resp)
     return resp[0]
@@ -63,7 +63,7 @@ async function addPonto(id_ponto, id_rota) {
 //deletar ponto da rota (id_rota, id_ponto) na tabela rotas_pontos
 async function deletaPonto(id_rota, id_ponto) {
     let conn = await banco.conecta()
-    let sql = "delete from rotas_pontos where id_rota = ? and id_ponto = ?"
+    let sql = "delete from rotas_pontos where id_rota = ? and id_pontos = ?"
     let resp = await conn.query(sql, [id_rota, id_ponto])
     console.log(resp[0])
     return resp[0].affectedRows

@@ -4,14 +4,14 @@ const banco = require("../banco/banco_solicitacoes")
 const banco_viagens = require("../banco/banco_viagens")
 
 //pegar solicitacao enviadas
-router.get("/:id_usuario1", async (req, res) => {
+router.get("/enviadas/:id_usuario1", async (req, res) => {
     let id_usuario1 = req.params.id_usuario1
     let resp = await banco.pegaSolicitacoesEnviadas(id_usuario1)
     return res.status(201).json(resp)
 })
 
 //pegar solicitacoes recebidas
-router.get("/:id_usuario2", async (req, res) => {
+router.get("/recebidas/:id_usuario2", async (req, res) => {
     let id_usuario2 = req.params.id_usuario2
     let resp = await banco.pegaSolicitacoesRecebidas(id_usuario2)
     return res.status(201).json(resp)
@@ -28,10 +28,11 @@ router.post("", async (req, res) => {
     }
 })
 
-router.delete("/:id", async(req, res) => {
+router.delete("/:id_usuario1/:nome_usuario2", async(req, res) => {
     //deleta a solicitação pelo id de quem mandou 
-    let id = req.params.id
-    let resp = await banco.deletaSolicitacao(id)
+    let id_usuario1 = req.params.id_usuario1
+    let nome_usuario2 = req.params.nome_usuario2
+    let resp = await banco.deletaSolicitacaoEnviada(id_usuario1, nome_usuario2)
     if(resp) {
         return res.status(204).send("solicitacao deletada")
     } else {
@@ -41,35 +42,25 @@ router.delete("/:id", async(req, res) => {
 
 //responder solicitação 
 // resp como true ou false no front
-// o tipo de solicitacao pode ser para adicionar ou tirar alguem da viagem 
+
 // (add = true, del = false)
-router.post("/responder/:tipo/:resp", async(req, res) => {
+router.post("/responder/:resp", async(req, res) => {
     //resp é se o usuario aceitou ou nao a solicitacao
     //se sim - adiciona usuario a viagem (banco_viagens) e deleta a solicitação
     //se nao - so deleta
-    let tipo = req.params.tipo
     let resp = req.params.resp
     let solicitacao = req.body
-    if(tipo) {
-        if (resp) {
-            let addUsuario = await banco_viagens.addUsuarioViagem(solicitacao.id_viagem, solicitacao.id_usuario)
-            if(addUsuario.affectedRows == 1) {
-                console.log("usuario adicionado na viagem")
-            } else {
-                return res.status(400).send("usuario nao pode ser adicionado")
-            }
-        } 
-    } else {
-        if (!resp) {
-            let delUsuario = await banco_viagens.deletaUsuarioDaViagem(solicitacao.id_viagem, solicitacao.id_usuario)
-            if(delUsuario.affectedRows == 1) {
-                console.log("usuario removido da viagem")
-            } else {
-                return res.status(400).send("usuario nao pode ser deletado da viagem")
-            }
-        } 
-    }
-
+    console.log("resp:", resp)
+    if (resp === 1) {
+        console.log("resp: depois do if", resp)
+        let addUsuario = await banco_viagens.addUsuarioViagem(solicitacao.id_viagem, solicitacao.id_usuario2)
+        if(addUsuario.affectedRows == 1) {
+            console.log("usuario adicionado na viagem")
+        } else {
+            return res.status(400).send("usuario nao pode ser adicionado")
+        }
+    } 
+    
     let delSolicitacao = await banco.deletaSolicitacao(solicitacao)
     if(delSolicitacao) {
         return res.status(204).send("solicitacao respondida")

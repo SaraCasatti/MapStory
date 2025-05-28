@@ -14,16 +14,23 @@ async function mandaSolicitacao(solicitacao) {
 //deleta solicitação
 async function deletaSolicitacao(solicitacao) {
     let conn = await banco.conecta()
-    let sql = "delete from solicitacao where id_usuario1 = ? or id_usuario2 = ?"
+    let sql = "delete from solicitacoes where id_usuario1 = ? and id_usuario2 = ?"
     let resp = await conn.query(sql, [solicitacao.id_usuario1, solicitacao.id_usuario2])
     console.log(resp[0])
+    return resp[0].affectedRows
+}
+
+async function deletaSolicitacaoEnviada(id_usuario1, nome_usuario2) {
+    let conn = await banco.conecta()
+    let sql = "delete from solicitacoes where id_usuario1 = ? and id_usuario2 = (select id from usuarios where usuario = ?)"
+    let resp = await conn.query(sql, [id_usuario1, nome_usuario2])
     return resp[0].affectedRows
 }
 
 //pega solicitacoes enviadas
 async function pegaSolicitacoesEnviadas(id_usuario1) {
     let conn = await banco.conecta()
-    let sql = "select * from solicitacoes where id_usuario1 = ?"
+    let sql = 'select usuario, id_viagem from solicitacoes as s join usuarios as u on s.id_usuario2 = u.id where s.id_usuario1 = ?'
     let resp = await conn.query(sql, [id_usuario1])
     return resp[0];
 }
@@ -31,9 +38,9 @@ async function pegaSolicitacoesEnviadas(id_usuario1) {
 //pega solicitacoes recebidas
 async function pegaSolicitacoesRecebidas(id_usuario2) {
     let conn = await banco.conecta()
-    let sql = "select * from solicitacoes where id_usuario2 = ?"
+    let sql = "select usuario, id_viagem from solicitacoes as s join usuarios as u on s.id_usuario1 = u.id where s.id_usuario2 = ?"
     let resp = await conn.query(sql, [id_usuario2])
-    return resp[1]
+    return resp[0]
 }
 
-module.exports = {mandaSolicitacao, deletaSolicitacao, pegaSolicitacoesEnviadas, pegaSolicitacoesRecebidas}
+module.exports = {mandaSolicitacao, deletaSolicitacao, pegaSolicitacoesEnviadas, pegaSolicitacoesRecebidas, deletaSolicitacaoEnviada}

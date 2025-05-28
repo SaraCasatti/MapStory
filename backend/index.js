@@ -41,33 +41,33 @@ app.use("/imagens", require("./rotas/rotas-imagens"))
 //deletar usuario t - ok
 //criar usuario teste 1 - senha 111 - ok
 
-//*testes de viagem ok - e testes de rota ok - e de pontos
-//criar uma viagem chamada - ok viagem00 (viagem 0 do usuario teste 0)- ok rota00 - ponto00(nao vis)
-//testa os dois gets - ok viagens - ok rotas - 
-//atualiza - ok viagem - ok rotas - ponto vai para vis
-//deleta - ok viagem - preisa de mais coisa para testar deletar rota - 
+//*testes de viagem ok - e testes de rota ok - e de pontos ok
+//criar uma viagem chamada - ok viagem00 (viagem 0 do usuario teste 0)- ok rota00 - ok ponto00(nao vis)
+//testa os dois gets - ok viagens - ok rotas - ok pontos
+//atualiza - ok viagem - ok rotas - ponto vai para vis - ok pontos
+//deleta - ok viagem - preisa de mais coisa para testar deletar rota - ok pontos
 //criar uma viagem chamada - ok viagem10 (viagem 1 usuario 0) - ok rota10 - ponto10
 
-//*rota ponto
-//adicionar pontos na rotaDel e deletar a rotaDel
-//adicionar ponto em uma rota ponto 100 na rota10
-//testar o get
-//tirar ponto de uma rota
+//*rota ponto ok
+//adicionar pontos na rotaDel ok e deletar a rotaDel ok
+//adicionar ponto em uma rota ponto10 na rota10 ok
+//testar o get ok
+//tirar todos os pontos de uma rota ok
 
-//*solicitaçoes
-//fazer uma solicitaçao do teste0 para o teste1 na viagem viagem10
-//get solicitacao enviada
-//get solicitacao recebida
-//responder solicitacao negativamente
+//*solicitaçoes ok
+//fazer uma solicitaçao do teste0 para o teste1 na viagem viagem10 ok
+//get solicitacao enviada ok
+//get solicitacao recebida ok
+//responder solicitacao negativamente ok 
 //fazer novamente a solicitacao
-//responder positivamente
+//responder positivamente ok 
 //criar novo usuario - teste2 - senha 222
 //criar solicitacao teste1 para o teste2 na viagem10
-//teste1 deleta solicitacao
+//teste1 deleta solicitacao  ok
 
 //*imagens
-//adicionar imagem - ponto10
-//atualizar imagem
+//adicionar imagem - ponto10 ok
+//atualizar imagem ok 
 //pegar imagem do ponto 
 //deletar imagem
 

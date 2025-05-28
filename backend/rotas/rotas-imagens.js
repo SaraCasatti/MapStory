@@ -35,6 +35,7 @@ router.put("/:id", async(req, res) => {
     let id = req.params.id //ver se precisa usar - nos testes 
     let img = req.body
     let resp = await banco.atualizaImg(img)
+    console.log(resp)
     if(resp) {
         return res.status(204).send("descrição da imagem atualizada")
     } else {

@@ -37,7 +37,7 @@ foreign key (id_viagem) references viagens(id));
 
 create table pontos(id int primary key auto_increment,
 latitude decimal(11, 8) not null,
-logitude decimal(11,8) not null,
+longitude decimal(11,8) not null,
 fui bit,
 descricao varchar(10000),
 id_viagem int,

@@ -21,7 +21,7 @@ async function deletaImg(id) {
     let conn = await banco.conecta()
     let sql = "delete from imagens where id = ?"
     let resp = await conn.query(sql, [id])
-    resp[0].affectedRows
+    return resp[0].affectedRows
 }
 
 //deleta imagem - pelo id do ponto (para ajudar quando eu estiver deletando o ponto)
@@ -29,7 +29,7 @@ async function deletaImgIdPonto(id) {
     let conn = await banco.conecta()
     let sql = "delete from imagens where id_ponto = ?"
     let resp = await conn.query(sql, [id])
-    resp[0].affectedRows
+    return resp[0].affectedRows
 }
 
 //atualiza imagem - descrição
@@ -37,7 +37,7 @@ async function atualizaImg(img) {
     let conn = await banco.conecta()
     let sql = "update imagens set descricao = ? where id = ?"
     let resp = await conn.query(sql, [img.descricao, img.id])
-    resp[0].affectedRows
+    return resp[0].affectedRows
 }
 
 module.exports = {pegarImg, addImagem, deletaImg, atualizaImg, deletaImgIdPonto}

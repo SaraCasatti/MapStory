@@ -30,7 +30,7 @@ async function criaViagem(viagem) {
 async function addUsuarioViagem(id_viagem, id_usuario) {
     //usuario_viagem (tabela)
     let conn = await banco.conecta()
-    let sql = "insert into usuario_viagem(id_usuario, id_viagem) values (?, ?)"
+    let sql = "insert into usuario_viagem(id_usuario, id_viagem) values(?,?)"
     let resp = await conn.query(sql, [id_usuario, id_viagem])
     console.log("resp addUsuarioViagem: ",resp)
     return resp[0]

@@ -33,19 +33,25 @@ router.post("", async(req, res) => {
     }
 })
 
-//excluir rotas (excluir da rotas_ponto e depois da rotas)
+//excluir rotas 
 router.delete("/:id", async(req, res) => {
     let id = req.params.id
-    let delRotasPontos = await banco.deletaPontosRota(id)
-    if(delRotasPontos) {
-        let resp = await banco.deletaRota(id)
-        if(resp) {
-            return res.status(204).send("rota deletada")
-        } else {
-            return res.status(404).send("erro")
-        }
+    let resp = await banco.deletaRota(id) 
+    if(resp) {
+        return res.status(204).send("rota deletada")
     } else {
-        return res.status(404).send("erro ao deletar pontos da rota")
+        return res.status(404).send("erro")
+    }
+})
+
+//exclui rotas_pontos 
+router.delete("/deletaPontosRota/:id_rota", async(req, res) => {
+    let id_rota = req.params.id_rota
+    let resp = await banco.deletaPontosRota(id_rota)
+    if(resp) {
+        return res.status(204).send("pontos rotas deletado")
+    } else {
+        return res.status(404).send("erro")
     }
 })
 
