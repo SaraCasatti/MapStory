@@ -5,6 +5,7 @@ async function pegarImg(id_ponto) {
     let conn = await banco.conecta()
     let sql = "select * from imagens where id_ponto = ?"
     let resp = await conn.query(sql, [id_ponto])
+    console.log(resp, id_ponto)
     return resp[0]
 }
 

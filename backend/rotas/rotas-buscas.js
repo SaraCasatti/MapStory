@@ -3,14 +3,14 @@ const router = express.Router()
 const banco = require("../banco/banco_buscas")
 
 //busca por pontos nao visistados
-router.get("/naoVis", async(req, res) => {
-    let pontos = await banco.pontosNaoVis(req.body.id_viagem)
+router.get("/naoVis/:id_viagem", async(req, res) => {
+    let pontos = await banco.pontosNaoVis(req.params.id_viagem)
     return res.status(200).json(pontos)
 })
 
 //busca por pontos visitados
-router.get("/vis", async(req, res) => {
-    let pontos = await banco.pontosVis(req.body.id_viagem)
+router.get("/vis/:id_viagem", async(req, res) => {
+    let pontos = await banco.pontosVis(req.params.id_viagem)
     return res.status(200).json(pontos)
 })
 

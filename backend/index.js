@@ -68,18 +68,17 @@ app.use("/imagens", require("./rotas/rotas-imagens"))
 //*imagens
 //adicionar imagem - ponto10 ok
 //atualizar imagem ok 
-//pegar imagem do ponto 
-//deletar imagem
+//pegar imagem do ponto ok 
+//deletar imagem ok
 
 
 //*buscas
-// criar ponto101 (naoVis) e ponto102(vis)
-//busca por pontos (naoVis) - ponto101
-//busca por pontos (vis) - ponto102 e ponto100
-//adicionar duas imagems uma no ponto101 e uma no ponto102
-//buscar todas as imagens de uma viagem
-//buscar viagem por cidade
-//pega todos os pontos do usuario  do teste0 e  do teste1 - devem ser os mesmos pq estao apenas na mesma viagem
+//busca por pontos (naoVis) ok
+//busca por pontos (vis) ok
+//adicionar duas imagems em pontos diferentes ok
+//buscar todas as imagens de uma viagem ok
+//buscar viagem por cidade ok
+//pega todos os pontos do usuario  do teste0 e  do teste1 - devem ser os mesmos pq estao apenas na mesma viagem ok 
 
 
 app.listen(8001)

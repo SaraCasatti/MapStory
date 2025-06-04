@@ -3,8 +3,8 @@ const router = express.Router()
 const banco = require("../banco/banco_imagens")
 
 //pegar todas as de um ponto imagem - ta qui pq é tipo a default
-router.get("", async(req, res) => {
-    let imagens = await banco.pegarImg(req.body.id_ponto)
+router.get("/:id_ponto", async(req, res) => {
+    let imagens = await banco.pegarImg(req.params.id_ponto)
     return res.status(200).json(imagens)
 })
 
