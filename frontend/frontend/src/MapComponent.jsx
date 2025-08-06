@@ -4,6 +4,7 @@ import TileLayer from "ol/layer/Tile"
 import "ol/ol.css"
 import OSM from "ol/source/OSM"
 import { useEffect, useRef } from "react"
+import NavBar from "./Navbar"
 
 function MapComponent() {
   const mapRef = useRef()
@@ -26,11 +27,13 @@ function MapComponent() {
   }, [])
 
   return (
+    <>
     <div
-      style={{ height: "300px", width: "80%" }}
+      style={{ height: "88vh", width: "100%"}}
       ref={mapRef}
       className="map-container"
     />
+    </>
   )
 }
 
