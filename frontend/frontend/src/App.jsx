@@ -10,16 +10,11 @@ function App() {
 
   //esses hooks são para o login
   const [usuario, setUsuario] = useState("")
-  const [id_usuario, setId_usuario] = useState(-1)
-  const [lc, setLc] = useState(-1)//-1 - nenhum form 1-login 2- cadastro 3- deu certo (vai para a pag do usuario)
-
+  const [id_usuario, setId_usuario] = useState("")
+  //vai para a pagina do usuario
   const [u, setU] = useState(false)
-  const [usr, setUsr] = useState("")
-
-
-
+  
   return (<>
-
     <NavBar setU={setU} />
     <div style={{ position: 'relative' }}>
 
@@ -34,7 +29,6 @@ function App() {
             setUsuario={setUsuario}
             id={id_usuario}
             setId={setId_usuario}
-            lc={setLc}
           />
         </div>
       )}
