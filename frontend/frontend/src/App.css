@@ -35,16 +35,24 @@
   backdrop-filter: blur(2px); /* opcional: desfoca o fundo da própria camada */
 }
 
+
+
 .bUsuario {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;      /* se não couber em linha, quebra */
   justify-content: center;
   align-items: center;
-  gap: 5rem;
+  gap: 2rem;
+
+  max-width: 100%;      /* nunca ultrapassa o pai */
+  max-height: 100%;
+  box-sizing: border-box;
 }
+
 
 .card {
   width: 70vw;   /* 40% da largura da tela */
   margin: 0 auto;
-  
+  /*max-height: 40vw;*/
 }

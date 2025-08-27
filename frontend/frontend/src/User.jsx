@@ -1,14 +1,20 @@
 import { useState } from 'react';
+import PagUser from './PagUser';
 
 function User(props) {
     //retorna duas coisas
     //se nao tiver cadastrado ou login: pg com os botoes
     //se tiver clicado ir para o forms
 
+
     let usuario = props.usuario
     let setUsuario = props.setUsuario
     let id = props.id
     let setId = props.setId
+    let logado = props.logado
+    let setLogado = props.setLogado
+
+     console.log(usuario, " user")
 
     const[forms, setForms] = useState(false);
     const[tipoForms, setTipoForms] = useState(false);
@@ -26,6 +32,28 @@ function User(props) {
 
     return (<>
 
+        {logado?
+        <div className="card  " style={{backgroundColor: ' rgba(255, 255, 255, 1)', border: '1px solid rgb(195, 204, 213)'}}>
+        <header className="card-header">
+            <p className="card-header-title" style={{color: 'black'}}> Usuário: {usuario}</p>
+            <button className="card-header-icon" aria-label="more options">
+                <span className="icon">
+                    <i className="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+            </button>
+        </header>
+        <div className="card-content">
+            <PagUser
+            setLogado = {setLogado}
+            id = {id}
+            setId = {setId}
+            usuario = {usuario}
+            setUsuario = {setUsuario}
+            setForms = {setForms}
+            />
+        </div>
+        </div>
+        :
         <div className="card  " style={{backgroundColor: ' rgba(255, 255, 255, 1)', border: '1px solid rgb(195, 204, 213)'}}>
         <header className="card-header">
             <p className="card-header-title" style={{color: 'black'}}> Usuário: {usuario}</p>
@@ -37,7 +65,13 @@ function User(props) {
         </header>
         <div className="card-content">
             {forms?
-            <FazForm tipo={tipoForms} setForms = {setForms} usuario={usuario} setUsuario={setUsuario} setId = {setId}/> :
+            <FazForm tipo={tipoForms} 
+            setForms = {setForms} 
+            usuario={usuario} 
+            setUsuario={setUsuario} 
+            setId = {setId}
+            setLogado = {setLogado}
+            /> :
             <div className="content bUsuario" style={{color: 'black'}}>
                 <button onClick={cadastra} className="button " style={{backgroundColor: 'rgba(230, 238, 243, 1)', color: 'black'}}>Cadastrar</button>
                 <button onClick= {loga} className="button" style={{backgroundColor: 'rgba(230, 238, 243, 1)', color: 'black'}}>Login</button>
@@ -45,6 +79,7 @@ function User(props) {
             }
         </div>
         </div>
+        }
     </>)
 
 }
@@ -54,6 +89,7 @@ function FazForm(props) {
     //usuario tem: usuario e senha
     const setUsuario = props.setUsuario
     const setId = props.setId
+    const setLogado = props.setLogado
 
     const tipo = props.tipo
     //false - cadastro / true - loga
@@ -91,10 +127,11 @@ function FazForm(props) {
             let resp2 = await fetch(`http://localhost:8001/usuarios/checar/${user.usuario}/${user.senha}`)
             if(resp2.status == 200 ) {
                 console.log("logado")
-                setUsuario(usu.usuario)
-                setId(usu.id)
+                setUsuario(usu[0].usuario)
+                setId(usu[0].id)
                 console.log(usu[0].usuario, " e ", usu[0].id)
                 console.log(usu)
+                setLogado(true)
             } else {
                 window.alert("senha errada")
                 voltar()
@@ -104,6 +141,37 @@ function FazForm(props) {
 
     async function cadastro(event) {
         console.log("cadastro")
+        let teste = await fetch(`http://localhost:8001/usuarios/${user.usuario}`)
+        if(teste.status == 404) {
+            let options = {
+                method:"POST",
+                body: JSON.stringify({
+                    id: -1,
+                    usuario: user.usuario,
+                    senha: user.senha
+                }),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            }
+            let resp = await fetch("http://localhost:8001/usuarios", options)
+            console.log(resp)
+            if(resp.status == 201) {
+                setUsuario(user.usuario)
+                let resp2 = await fetch(`http://localhost:8001/usuarios/${user.usuario}`)
+                let dados = await resp2.json()
+                console.log(dados)
+                setId(dados[0].id)
+                console.log(user.usuario, " e ", dados[0].id)
+                setLogado(true)
+            } else {
+                window.alert("Erro no cadastro")
+                voltar()
+            }
+        } else {
+            window.alert("usuario ja existe")
+            voltar()
+        }
     }
 
     return(<>

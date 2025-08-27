@@ -15,6 +15,7 @@ async function mostraUsuarioSenha(usuario){
   let conn = await banco.conecta()
   let sql = "select senha from usuarios where usuario = ?"
   let resposta = await conn.query(sql, [usuario])
+  console.log(resposta)
   console.log(resposta[0][0])
   return resposta[0][0].senha
 }

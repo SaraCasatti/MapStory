@@ -13,7 +13,10 @@ function App() {
   const [id_usuario, setId_usuario] = useState("")
   //vai para a pagina do usuario
   const [u, setU] = useState(false)
+  //fala se esta logado ou nao
+  const [logado, setLogado] = useState(false)
   
+
   return (<>
     <NavBar setU={setU} />
     <div style={{ position: 'relative' }}>
@@ -29,6 +32,8 @@ function App() {
             setUsuario={setUsuario}
             id={id_usuario}
             setId={setId_usuario}
+            logado = {logado}
+            setLogado = {setLogado}
           />
         </div>
       )}
