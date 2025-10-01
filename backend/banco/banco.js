@@ -6,7 +6,7 @@ async function conecta() {
         port: 3306,
         database: "MapStory",
         user:"root",
-        password:"Nhonhoemartemi6!"
+        password:"xxxx"
     })
     return conexao
 }
