@@ -30,7 +30,7 @@ cd MapStory
 ```bash
 cd backend
 npm install
-npm start
+node index.js
 ```
 5. Frontend — instalar dependências e rodar:
 ```bash
