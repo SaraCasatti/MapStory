@@ -26,12 +26,6 @@ cd MapStory
 - Importe o arquivo `pji_banco.sql` que está na raiz do projeto para o seu banco.
 - Ajuste as credenciais de conexão no backend.
 
-3. Configure o banco de dados:
-
-- Importe o arquivo pji_banco.sql (presente na raiz do projeto) no seu MySQL/MariaDB.
-
-- Ajuste as credenciais de conexão no backend (arquivo .env, config.js ou onde estiver a configuração de DB).
-
 4. Backend — instalar dependências e rodar:
 ```bash
 cd backend
